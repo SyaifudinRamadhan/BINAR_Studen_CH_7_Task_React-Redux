@@ -1,0 +1,57 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { Navigate } from 'react-router-dom';
+import '../../index.css';
+import Navbar from '../Layouts/standart';
+import {ListCar} from '../../Components';
+
+function Blog({user}) {
+
+    const [imgFile, setImg] = useState(process.env.PUBLIC_URL + '/logo192.png');
+    const fileRef = useRef();
+    
+    const handleChange = () => {
+        const img = fileRef.current.files[0];
+        const reader = new FileReader();
+
+        reader.addEventListener('load', ()=>{
+            setImg(reader.result);
+        });
+
+        reader.readAsDataURL(img);
+    }
+
+    const handleDelPrev = () => {
+        setImg(process.env.PUBLIC_URL + '/logo192.png');
+    }
+
+    useEffect(() => {
+        document.getElementById('exInFile').addEventListener('change', ()=>{
+            handleChange();
+        })
+        document.getElementById('delete').addEventListener('click', () => {
+            handleDelPrev();
+        })
+    })
+
+    return (
+        <div>
+            <Navbar user={user}></Navbar>
+            <div>
+                <h1>Ini halaman Blog</h1>
+                <h3 className='mt-5'>Inputkan gambar</h3>
+                <img src={imgFile}></img>
+                <div className='container'>
+                    <div className="mb-3">
+                        <label htmlFor="exInFile" className="form-label">Gambar</label>
+                        <input ref={fileRef} type="file" className="form-control" id="exInFile" aria-describedby="emailHelp" />
+                    </div>
+                    <button className='btn btn-danger' id='delete'>Hapus Gambar</button>
+                </div>
+
+            </div>
+            <ListCar></ListCar>
+        </div>
+    );
+}
+
+export default Blog
