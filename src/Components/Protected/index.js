@@ -1,6 +1,8 @@
 /* eslint-disable no-unreachable */
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
+import { getUserData } from '../../actions/UserAction';
 import '../../index.css';
 
 const ajaxGetUser = async (jwt) => {
@@ -29,10 +31,11 @@ const destroyToken = (token) => {
 
 let loopRender = 0;
 
-function ProtectedRoute({children, callback}) {
+function ProtectedRoute({children}) {
+
+    const dispatch = useDispatch();    
 
     const [navigate, setNav] = useState('');
-    const [user, setUser] = useState(undefined);
 
     console.log('Ini diulangi');
 
@@ -49,8 +52,7 @@ function ProtectedRoute({children, callback}) {
                         setNav('/login')
                     }
                     if(loopRender === 0){
-                        setUser(json.user);
-                        callback(json.user);
+                        dispatch(getUserData(json.user));
                         loopRender+=1;
                     }
                 }).catch(err => {
@@ -67,7 +69,7 @@ function ProtectedRoute({children, callback}) {
             console.log(error);
             setNav('/login')
         }
-    })
+    }, [dispatch])
 
     return (
         navigate === '' ? children : <Navigate to={navigate} />

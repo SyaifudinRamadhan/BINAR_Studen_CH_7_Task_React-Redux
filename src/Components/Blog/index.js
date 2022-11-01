@@ -4,7 +4,7 @@ import '../../index.css';
 import Navbar from '../Layouts/standart';
 import {ListCar} from '../../Components';
 
-function Blog({user}) {
+function Blog() {
 
     const [imgFile, setImg] = useState(process.env.PUBLIC_URL + '/logo192.png');
     const fileRef = useRef();
@@ -35,7 +35,7 @@ function Blog({user}) {
 
     return (
         <div>
-            <Navbar user={user}></Navbar>
+            <Navbar></Navbar>
             <div>
                 <h1>Ini halaman Blog</h1>
                 <h3 className='mt-5'>Inputkan gambar</h3>
@@ -49,7 +49,6 @@ function Blog({user}) {
                 </div>
 
             </div>
-            <ListCar></ListCar>
         </div>
     );
 }

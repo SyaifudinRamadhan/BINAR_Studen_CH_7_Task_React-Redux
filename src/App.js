@@ -6,8 +6,6 @@ import React, { useState } from 'react';
 
 function App() {
 
-  const [globalUser, setGlobalUser] = useState(undefined);
-
   return (
     <div className='App'>
       <BrowserRouter>
@@ -18,22 +16,22 @@ function App() {
               <Login></Login>
             } />
           <Route path='/' element={
-            <ProtectedRoute callback={setGlobalUser}>
-              <Dashboard user={globalUser} />
+            <ProtectedRoute >
+              <Dashboard />
             </ProtectedRoute>
           } />
           <Route
             path="blog"
             element={
-              <ProtectedRoute callback={setGlobalUser}>
-                <Blog user={globalUser} />
+              <ProtectedRoute >
+                <Blog />
               </ProtectedRoute>
             } />
           <Route
             path="contact"
             element={
-              <ProtectedRoute callback={setGlobalUser}>
-                <Contact user={globalUser} />
+              <ProtectedRoute >
+                <Contact />
               </ProtectedRoute>
             } />
           <Route path="*" element={

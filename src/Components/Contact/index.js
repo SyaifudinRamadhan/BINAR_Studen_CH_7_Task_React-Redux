@@ -3,10 +3,10 @@ import { Navigate } from 'react-router-dom';
 import '../../index.css';
 import Navbar from '../Layouts/standart';
 
-function Contact ({user}) {
+function Contact () {
     return (
         <div>
-            <Navbar user={user}></Navbar>
+            <Navbar></Navbar>
             <div>
                 <h1>Ini halaman Contact</h1>
             </div>

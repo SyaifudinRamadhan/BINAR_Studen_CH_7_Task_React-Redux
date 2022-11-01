@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import '../../index.css';
 
-function Navbar({ user }) {
+function Navbar() {
 
     const [login, setLogin] = useState(true);
-    const [userData, setUser] = useState(user);
+    const {getUserData, getUserLoading, getUserErr} = useSelector(state => state.userReducer);
 
     const logoutHandle = () => {
         console.log('Di klik');
@@ -21,8 +22,6 @@ function Navbar({ user }) {
         } catch (error) {
             console.log(error);
         }
-        setUser(user);
-        console.log(user);
     })
 
     return (
@@ -50,10 +49,13 @@ function Navbar({ user }) {
                             <ul>
                                 <li className="nav-item dropdown" style={{ listStyle: 'none' }}>
                                     <a className="nav-link dropdown-toggle" href={'/'} role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        {userData != undefined ? userData.email : 'My Account'}
+                                        {getUserData ? getUserData.email : 'My Account'}
                                     </a>
                                     <ul className="dropdown-menu">
-                                        <li className="dropdown-item">{userData != undefined ? userData.username : 'Username'}</li>
+                                        <li className="dropdown-item">{getUserData ? getUserData.username : 'Username'}</li>
+                                        {
+                                            console.log(getUserData, getUserLoading, getUserErr)
+                                        }
                                         <li><button id='logout' className="dropdown-item">Logout</button></li>
                                     </ul>
                                 </li>
